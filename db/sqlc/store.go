@@ -71,30 +71,21 @@ func (store *Store) TransferTx(ctx context.Context, params CreateTransferParams)
 			return err
 		}
 
-		result.FromAccount, err = q.GetAccount(ctx, params.FromAccountID)
-		if err != nil {
-			return err
-		}
-
-		result.ToAccount, err = q.GetAccount(ctx, params.ToAccountID)
-		if err != nil {
-			return err
-		}
-
-		fromResultBalance := result.FromAccount.Balance - params.Amount
-		toResultBalance := result.ToAccount.Balance + params.Amount
-		err = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      params.FromAccountID,
-			Balance: fromResultBalance,
+		result.FromAccount, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+			Amount: -params.Amount,
+			ID:     params.FromAccountID,
 		})
 		if err != nil {
 			return err
 		}
 
-		err = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      params.ToAccountID,
-			Balance: toResultBalance,
+		result.ToAccount, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+			Amount: params.Amount,
+			ID:     params.ToAccountID,
 		})
+		if err != nil {
+			return err
+		}
 
 		// TODO: take care about deadlock
 

@@ -28,6 +28,7 @@ func TestCreateTransferAPI(t *testing.T) {
 		Balance:  util.RandomMoney(),
 		Currency: util.USD,
 	}
+
 	amount := int64(10)
 	testCases := []struct {
 		name          string
@@ -60,6 +61,23 @@ func TestCreateTransferAPI(t *testing.T) {
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
+			},
+		},
+		{
+			name:          "Currency mismatch",
+			accountIDFrom: accountFrom.ID,
+			accountIDTo:   accountTo.ID,
+			body: gin.H{
+				"from_account_id": accountFrom.ID,
+				"to_account_id":   accountTo.ID,
+				"amount":          amount,
+				"currency":        util.EUR,
+			},
+			buildStubs: func(store *mockdb.MockStore) {
+				store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(accountFrom.ID)).Times(1).Return(accountFrom, nil)
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
 		},
 		//TODO: Make more test cases

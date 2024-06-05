@@ -2,11 +2,11 @@ package main
 
 import (
 	"database/sql"
+	"github.com/Mgeorg1/simpleBank/util"
 	"log"
 
 	api "github.com/Mgeorg1/simpleBank/api"
 	db "github.com/Mgeorg1/simpleBank/db/sqlc"
-	"github.com/Mgeorg1/simpleBank/db/util"
 	_ "github.com/lib/pq"
 )
 

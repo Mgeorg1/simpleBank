@@ -3,13 +3,13 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	util2 "github.com/Mgeorg1/simpleBank/util"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	mockdb "github.com/Mgeorg1/simpleBank/db/mock"
 	db "github.com/Mgeorg1/simpleBank/db/sqlc"
-	"github.com/Mgeorg1/simpleBank/db/util"
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
@@ -18,15 +18,15 @@ import (
 func TestCreateTransferAPI(t *testing.T) {
 	accountFrom := db.Account{
 		ID:       1,
-		Owner:    util.RandomOwner(),
-		Balance:  util.RandomInt(10, 1000),
-		Currency: util.USD,
+		Owner:    util2.RandomOwner(),
+		Balance:  util2.RandomInt(10, 1000),
+		Currency: util2.USD,
 	}
 	accountTo := db.Account{
 		ID:       2,
-		Owner:    util.RandomOwner(),
-		Balance:  util.RandomMoney(),
-		Currency: util.USD,
+		Owner:    util2.RandomOwner(),
+		Balance:  util2.RandomMoney(),
+		Currency: util2.USD,
 	}
 
 	amount := int64(10)
@@ -46,7 +46,7 @@ func TestCreateTransferAPI(t *testing.T) {
 				"from_account_id": accountFrom.ID,
 				"to_account_id":   accountTo.ID,
 				"amount":          amount,
-				"currency":        util.USD,
+				"currency":        util2.USD,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
 				store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(accountFrom.ID)).Times(1).Return(accountFrom, nil)
@@ -71,7 +71,7 @@ func TestCreateTransferAPI(t *testing.T) {
 				"from_account_id": accountFrom.ID,
 				"to_account_id":   accountTo.ID,
 				"amount":          amount,
-				"currency":        util.EUR,
+				"currency":        util2.EUR,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
 				store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(accountFrom.ID)).Times(1).Return(accountFrom, nil)

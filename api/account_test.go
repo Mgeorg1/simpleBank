@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/Mgeorg1/simpleBank/util"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -12,7 +13,6 @@ import (
 
 	mockdb "github.com/Mgeorg1/simpleBank/db/mock"
 	db "github.com/Mgeorg1/simpleBank/db/sqlc"
-	"github.com/Mgeorg1/simpleBank/db/util"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )

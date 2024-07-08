@@ -15,6 +15,7 @@ type Server struct {
 	store      db.Store
 	router     *gin.Engine
 	tokenMaker token.Maker
+	config     util.Config
 }
 
 func errorResponse(err error) gin.H {
@@ -23,6 +24,21 @@ func errorResponse(err error) gin.H {
 
 func (server *Server) Start(address string) error {
 	return server.router.Run(address)
+}
+
+func (server *Server) setupRouter() {
+	router := gin.Default()
+
+	router.POST("/accounts", server.createAccount)
+	router.GET("/accounts/:id", server.getAccount)
+	router.GET("/accounts", server.listAccount)
+
+	router.POST("/transfers", server.CreateTransfer)
+
+	router.POST("/users", server.createUser)
+	router.POST("/users/login", server.loginUser)
+
+	server.router = router
 }
 
 func NewServer(config util.Config, store db.Store) (*Server, error) {
@@ -34,7 +50,6 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 		store:      store,
 		tokenMaker: tokenMaker,
 	}
-	router := gin.Default()
 
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if !ok {
@@ -44,11 +59,8 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	router.POST("/accounts", server.createAccount)
-	router.GET("/accounts/:id", server.getAccount)
-	router.GET("/accounts", server.listAccount)
-	router.POST("/transfers", server.CreateTransfer)
-	router.POST("/users", server.createUser)
-	server.router = router
+
+	server.config = config
+	server.setupRouter()
 	return server, nil
 }

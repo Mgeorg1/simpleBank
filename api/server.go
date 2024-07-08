@@ -2,15 +2,19 @@ package api
 
 import (
 	"errors"
+	"fmt"
 	db "github.com/Mgeorg1/simpleBank/db/sqlc"
+	"github.com/Mgeorg1/simpleBank/token"
+	"github.com/Mgeorg1/simpleBank/util"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 )
 
 type Server struct {
-	store  db.Store
-	router *gin.Engine
+	store      db.Store
+	router     *gin.Engine
+	tokenMaker token.Maker
 }
 
 func errorResponse(err error) gin.H {
@@ -21,15 +25,22 @@ func (server *Server) Start(address string) error {
 	return server.router.Run(address)
 }
 
-func NewServer(store db.Store) (*Server, error) {
-	server := &Server{store: store}
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create token maker: %s", err)
+	}
+	server := &Server{
+		store:      store,
+		tokenMaker: tokenMaker,
+	}
 	router := gin.Default()
 
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if !ok {
 		return nil, errors.New("error while creating custom validator")
 	}
-	err := val.RegisterValidation("currency", validCurrency)
+	err = val.RegisterValidation("currency", validCurrency)
 	if err != nil {
 		return nil, err
 	}

@@ -8,7 +8,7 @@ import "google/api/annotations.proto";
 
 option  go_package = "github.com/Mgeorg1/simpleBank/pb";
 
-service Simplebank {
+service SimpleBank {
   rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
     option (google.api.http) = {
       post: "/v1/create_user"

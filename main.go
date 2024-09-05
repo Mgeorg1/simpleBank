@@ -40,7 +40,7 @@ func runGrpcServer(config util.Config, store db.Store) {
 	if err != nil {
 		log.Fatal("cannot start server: ", err)
 	}
-	pb.RegisterSimplebankServer(grpcServer, server)
+	pb.RegisterSimpleBankServer(grpcServer, server)
 	reflection.Register(grpcServer)
 	listener, err := net.Listen("tcp", config.GrpcServerAddress)
 	if err != nil {
@@ -63,13 +63,16 @@ func runGatewayServer(config util.Config, store db.Store) {
 	grpcMux := runtime.NewServeMux()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	err = pb.RegisterSimplebankHandlerServer(ctx, grpcMux, server)
+	err = pb.RegisterSimpleBankHandlerServer(ctx, grpcMux, server)
 	if err != nil {
 		log.Fatal("cannot register handler server")
 	}
 
 	mux := http.NewServeMux()
 	mux.Handle("/", grpcMux)
+	fs := http.FileServer(http.Dir("./doc/swagger"))
+	mux.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+
 	listener, err := net.Listen("tcp", config.HttpServerAddress)
 	if err != nil {
 		log.Fatalf("cannot create listener: %s", err)

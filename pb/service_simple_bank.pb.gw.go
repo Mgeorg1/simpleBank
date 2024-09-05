@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_Simplebank_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, client SimplebankClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SimpleBank_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, client SimpleBankClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateUserRequest
 	var metadata runtime.ServerMetadata
 
@@ -44,7 +44,7 @@ func request_Simplebank_CreateUser_0(ctx context.Context, marshaler runtime.Mars
 
 }
 
-func local_request_Simplebank_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, server SimplebankServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SimpleBank_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, server SimpleBankServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateUserRequest
 	var metadata runtime.ServerMetadata
 
@@ -57,7 +57,7 @@ func local_request_Simplebank_CreateUser_0(ctx context.Context, marshaler runtim
 
 }
 
-func request_Simplebank_LoginUser_0(ctx context.Context, marshaler runtime.Marshaler, client SimplebankClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SimpleBank_LoginUser_0(ctx context.Context, marshaler runtime.Marshaler, client SimpleBankClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq LoginUserRequest
 	var metadata runtime.ServerMetadata
 
@@ -70,7 +70,7 @@ func request_Simplebank_LoginUser_0(ctx context.Context, marshaler runtime.Marsh
 
 }
 
-func local_request_Simplebank_LoginUser_0(ctx context.Context, marshaler runtime.Marshaler, server SimplebankServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SimpleBank_LoginUser_0(ctx context.Context, marshaler runtime.Marshaler, server SimpleBankServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq LoginUserRequest
 	var metadata runtime.ServerMetadata
 
@@ -83,14 +83,14 @@ func local_request_Simplebank_LoginUser_0(ctx context.Context, marshaler runtime
 
 }
 
-// RegisterSimplebankHandlerServer registers the http handlers for service Simplebank to "mux".
-// UnaryRPC     :call SimplebankServer directly.
+// RegisterSimpleBankHandlerServer registers the http handlers for service SimpleBank to "mux".
+// UnaryRPC     :call SimpleBankServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterSimplebankHandlerFromEndpoint instead.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterSimpleBankHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
-func RegisterSimplebankHandlerServer(ctx context.Context, mux *runtime.ServeMux, server SimplebankServer) error {
+func RegisterSimpleBankHandlerServer(ctx context.Context, mux *runtime.ServeMux, server SimpleBankServer) error {
 
-	mux.Handle("POST", pattern_Simplebank_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SimpleBank_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -98,12 +98,12 @@ func RegisterSimplebankHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Simplebank/CreateUser", runtime.WithHTTPPathPattern("/v1/create_user"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.SimpleBank/CreateUser", runtime.WithHTTPPathPattern("/v1/create_user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Simplebank_CreateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SimpleBank_CreateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -111,11 +111,11 @@ func RegisterSimplebankHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 			return
 		}
 
-		forward_Simplebank_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SimpleBank_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Simplebank_LoginUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SimpleBank_LoginUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -123,12 +123,12 @@ func RegisterSimplebankHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Simplebank/LoginUser", runtime.WithHTTPPathPattern("/v1/login_user"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.SimpleBank/LoginUser", runtime.WithHTTPPathPattern("/v1/login_user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Simplebank_LoginUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SimpleBank_LoginUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -136,16 +136,16 @@ func RegisterSimplebankHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 			return
 		}
 
-		forward_Simplebank_LoginUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SimpleBank_LoginUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterSimplebankHandlerFromEndpoint is same as RegisterSimplebankHandler but
+// RegisterSimpleBankHandlerFromEndpoint is same as RegisterSimpleBankHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterSimplebankHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterSimpleBankHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
@@ -165,63 +165,63 @@ func RegisterSimplebankHandlerFromEndpoint(ctx context.Context, mux *runtime.Ser
 		}()
 	}()
 
-	return RegisterSimplebankHandler(ctx, mux, conn)
+	return RegisterSimpleBankHandler(ctx, mux, conn)
 }
 
-// RegisterSimplebankHandler registers the http handlers for service Simplebank to "mux".
+// RegisterSimpleBankHandler registers the http handlers for service SimpleBank to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterSimplebankHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterSimplebankHandlerClient(ctx, mux, NewSimplebankClient(conn))
+func RegisterSimpleBankHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterSimpleBankHandlerClient(ctx, mux, NewSimpleBankClient(conn))
 }
 
-// RegisterSimplebankHandlerClient registers the http handlers for service Simplebank
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "SimplebankClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "SimplebankClient"
+// RegisterSimpleBankHandlerClient registers the http handlers for service SimpleBank
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "SimpleBankClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "SimpleBankClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "SimplebankClient" to call the correct interceptors. This client ignores the HTTP middlewares.
-func RegisterSimplebankHandlerClient(ctx context.Context, mux *runtime.ServeMux, client SimplebankClient) error {
+// "SimpleBankClient" to call the correct interceptors. This client ignores the HTTP middlewares.
+func RegisterSimpleBankHandlerClient(ctx context.Context, mux *runtime.ServeMux, client SimpleBankClient) error {
 
-	mux.Handle("POST", pattern_Simplebank_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SimpleBank_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Simplebank/CreateUser", runtime.WithHTTPPathPattern("/v1/create_user"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.SimpleBank/CreateUser", runtime.WithHTTPPathPattern("/v1/create_user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Simplebank_CreateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SimpleBank_CreateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Simplebank_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SimpleBank_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Simplebank_LoginUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_SimpleBank_LoginUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Simplebank/LoginUser", runtime.WithHTTPPathPattern("/v1/login_user"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.SimpleBank/LoginUser", runtime.WithHTTPPathPattern("/v1/login_user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Simplebank_LoginUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SimpleBank_LoginUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Simplebank_LoginUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SimpleBank_LoginUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -229,13 +229,13 @@ func RegisterSimplebankHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 }
 
 var (
-	pattern_Simplebank_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "create_user"}, ""))
+	pattern_SimpleBank_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "create_user"}, ""))
 
-	pattern_Simplebank_LoginUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "login_user"}, ""))
+	pattern_SimpleBank_LoginUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "login_user"}, ""))
 )
 
 var (
-	forward_Simplebank_CreateUser_0 = runtime.ForwardResponseMessage
+	forward_SimpleBank_CreateUser_0 = runtime.ForwardResponseMessage
 
-	forward_Simplebank_LoginUser_0 = runtime.ForwardResponseMessage
+	forward_SimpleBank_LoginUser_0 = runtime.ForwardResponseMessage
 )
